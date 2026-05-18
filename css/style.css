@@ -513,7 +513,7 @@ img { max-width: 100%; }
 }
 
 /* Chart plotly containers */
-.plotly-chart { width: 100%; }
+.plotly-chart { width: 100%; min-height: 320px; }
 
 /* ── Insight Box ───────────────────────────────────────────── */
 .insight-box {

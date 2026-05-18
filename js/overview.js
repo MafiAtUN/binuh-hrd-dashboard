@@ -10,32 +10,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const chEl = document.getElementById('kpi-total-change');
   if (chEl && p) chEl.innerHTML = changeHtml(q.total, p.total);
 
-  Plotly.newPlot('chart-violation-donut', [donutTrace(
+  plotChart('chart-violation-donut', [donutTrace(
     ['Killed','Injured','Abducted'], [q.killed, q.injured, q.abducted],
     [C.killed, C.injured, C.abducted]
   )], {...pieLayout(300), annotations:[{text:`<b>${fmt(q.total)}</b><br><span style="font-size:11px">victims</span>`,x:0.5,y:0.5,showarrow:false,font:{color:C.text}}]});
 
   const g = q.gender;
-  Plotly.newPlot('chart-gender-donut', [donutTrace(
+  plotChart('chart-gender-donut', [donutTrace(
     ['Men','Women','Boys','Girls'], [g.male, g.female, g.boys, g.girls],
     [C.male, C.female, C.boys, C.girls]
   )], pieLayout(300));
 
   const trend = D.quarterly_trend || [];
-  Plotly.newPlot('chart-quarterly', [{
+  plotChart('chart-quarterly', [{
     type:'bar', x:trend.map(t=>t.label),
     y:trend.map(t=>t.total), marker:{color:C.accent},
     name:'Victims',
   }], {...baseLayout(), height:360});
 
-  Plotly.newPlot('chart-perp-donut', [donutTrace(
+  plotChart('chart-perp-donut', [donutTrace(
     Object.keys(q.by_perpetrator||{}), Object.values(q.by_perpetrator||{}),
     Object.keys(q.by_perpetrator||{}).map(perpColor)
   )], pieLayout(300));
 
   const months = MONTHS.filter(m => D.monthly?.[m]);
   if (months.length) {
-    Plotly.newPlot('chart-monthly', [
+    plotChart('chart-monthly', [
       {name:'Killed',x:months,y:months.map(m=>D.monthly[m].killed),type:'bar',marker:{color:C.killed}},
       {name:'Injured',x:months,y:months.map(m=>D.monthly[m].injured),type:'bar',marker:{color:C.injured}},
       {name:'Abducted',x:months,y:months.map(m=>D.monthly[m].abducted),type:'bar',marker:{color:C.abducted}},
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const top = sortedCommunes(10);
-  Plotly.newPlot('chart-commune-bar', [{
+  plotChart('chart-commune-bar', [{
     type:'bar', orientation:'h', y:top.map(t=>t[0]).reverse(), x:top.map(t=>t[1].total).reverse(),
     marker:{color:C.accent},
   }], {...baseLayout(), height:400, margin:{l:160}});

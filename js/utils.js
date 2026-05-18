@@ -22,6 +22,17 @@ const baseLayout = (o={}) => ({
 });
 const plotlyConfig = { displayModeBar:false, responsive:true };
 function pieLayout(h=340) { return baseLayout({ height:h, margin:{t:20,r:10,b:30,l:10}, legend:{orientation:'v',x:1.02,y:0.5} }); }
+function plotChart(id, traces, layout) {
+  const el = typeof id === 'string' ? document.getElementById(id) : id;
+  if (!el || typeof Plotly === 'undefined') return;
+  Plotly.newPlot(el, traces, layout, plotlyConfig);
+}
+function resizeCharts() {
+  document.querySelectorAll('.plotly-chart .js-plotly-plot').forEach(el => {
+    const host = el.closest('.plotly-chart');
+    if (host?.id) Plotly.Plots.resize(host);
+  });
+}
 
 const D = typeof BINUH_DATA !== 'undefined' ? BINUH_DATA : {};
 const cur = () => D.current || {};
@@ -86,6 +97,7 @@ function initCounters(){
   });
 }
 window.addEventListener('load',()=>{
+  resizeCharts();
   document.querySelectorAll('.plotly-chart').forEach(ch=>{
     const wrap=ch.closest('.chart-wrap');
     if(wrap&&!wrap.querySelector('.chart-download-actions')) addChartDownloadButtons(wrap,ch,ch.id);
