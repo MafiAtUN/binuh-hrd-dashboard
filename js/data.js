@@ -7,7 +7,7 @@ const BINUH_DATA = {
     "primary_quarter": "Q1",
     "period_label": "Q1 2026 — January – March",
     "source": "BINUH Human Rights — Incident Database (Report 2.0)",
-    "generated_at": "2026-05-18T20:31:13"
+    "generated_at": "2026-05-18T20:33:39"
   },
   "current": {
     "total": 2421,
