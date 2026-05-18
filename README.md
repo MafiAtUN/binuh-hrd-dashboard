@@ -2,48 +2,49 @@
 
 Public Q1 2026 dashboard for sexual violence incidents documented by the Human Rights Section, UN Integrated Office in Haiti (BINUH).
 
+**Built for [GitHub Pages](https://pages.github.com/)** — static HTML/CSS/JS only, no server or build step on deploy.
+
 ## Live site
 
 **https://mafiatun.github.io/binuh-hrd-dashboard/**
 
-*(Will move to the `binuh-human-rights-ohchr` GitHub organization once that is set up.)*
+## GitHub Pages setup
 
-## How data is published
+1. Push this repo to GitHub
+2. **Settings → Pages →** Branch **main**, folder **/**
+3. Wait 1–2 minutes, open the Pages URL
 
-| What | In git? | Purpose |
-|------|---------|---------|
-| **`js/data.js`** | Yes | `BINUH_DATA` — aggregated data the website loads (JavaScript object, same structure as JSON) |
-| **`documents/*.csv`** | **No** (gitignored) | Raw incident export — local only for ETL |
+See [DEPLOY.md](DEPLOY.md) for full details.
 
-The CSV is **not** shipped in this public repo. Only the pre-built `js/data.js` is published.
+## Published data
 
-## Update data (local only)
+| File | On GitHub? |
+|------|------------|
+| `js/data.js` | Yes — `BINUH_DATA` (pre-aggregated; what the site loads) |
+| `documents/*.csv` | No — gitignored; local ETL input only |
 
-1. Put `Cath's Mara data.csv` in `documents/`
-2. Run:
+## Local preview (optional)
 
-```bash
-pip3 install -r requirements.txt
-python3 extract_data.py
-```
-
-3. Commit only `js/data.js` if totals changed
-
-## Run locally
+Same files as GitHub Pages serves:
 
 ```bash
 python3 -m http.server 8000
 # http://localhost:8000
 ```
 
+Regenerate data locally (not on GitHub):
+
+```bash
+pip3 install -r requirements.txt
+# Place CSV in documents/, then:
+python3 extract_data.py
+git add js/data.js && git commit -m "Update data" && git push
+```
+
 ## Pages
 
 Overview · Demographics · Perpetrators · Geographic · SV Types · Maps
 
-## Tech
-
-HTML · CSS · Plotly · Leaflet · Python/pandas · No build step
-
 ## Disclaimer
 
-Data are non-exhaustive and subject to underreporting. For official reporting, use validated HR products.
+Data are non-exhaustive and subject to underreporting.
