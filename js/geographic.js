@@ -1,4 +1,12 @@
-onDashboardReady(() => {
+const GEO_CHARTS = {
+  'chart-commune-victims': { title: 'chart.commune_victims.title', sub: 'chart.commune_victims.sub', explain: 'chart.commune_victims.explain' },
+  'chart-commune-incidents': { title: 'chart.commune_incidents.title', sub: 'chart.commune_incidents.sub', explain: 'chart.commune_incidents.explain' },
+};
+
+function renderGeographic() {
+  enhanceChartWraps(GEO_CHARTS);
+  applyStaticI18n();
+
   const top = sortedCommunes(15);
   setKpi('kpi-communes', Object.keys(D.by_commune || {}).length);
   if (top[0]) {
@@ -22,8 +30,14 @@ onDashboardReady(() => {
 
   const tbl = document.getElementById('commune-table');
   if (tbl) {
-    tbl.innerHTML = `<thead><tr><th>Commune</th><th>Victims</th><th>Incidents</th><th>Killed</th><th>Injured</th><th>Abducted</th></tr></thead><tbody>${
+    tbl.innerHTML = `<thead><tr>
+      <th>${t('table.commune')}</th><th>${t('table.victims')}</th><th>${t('table.incidents')}</th>
+      <th>${t('table.killed')}</th><th>${t('table.injured')}</th><th>${t('table.abducted')}</th>
+    </tr></thead><tbody>${
       top.map(([c, d]) => `<tr><td>${c}</td><td>${d.total}</td><td>${d.incidents}</td><td>${d.killed}</td><td>${d.injured}</td><td>${d.abducted}</td></tr>`).join('')
     }</tbody>`;
   }
-});
+}
+
+registerPageRenderer(renderGeographic);
+onDashboardReady(renderGeographic);
