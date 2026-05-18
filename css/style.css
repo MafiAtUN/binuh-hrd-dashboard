@@ -799,3 +799,7 @@ footer strong { color: var(--text-muted); font-weight: 600; }
   .brand-sub { display: none; }
   .navbar-divider { display: none; }
 }
+
+.kpi-card.killed::before { background: var(--killed); }
+.kpi-card.injured::before { background: var(--injured); }
+.kpi-card.abducted::before { background: var(--abducted); }
