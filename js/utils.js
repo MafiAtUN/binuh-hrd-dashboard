@@ -33,19 +33,20 @@ function resizeCharts() {
     if (el.id && el.querySelector('.js-plotly-plot')) Plotly.Plots.resize(el);
   });
 }
-/** Run after layout + Plotly + data.js are ready (fixes blank 2nd charts in grid-2). */
+/** Run after layout + data.js are ready (Plotly only required on chart pages). */
 function onDashboardReady(fn) {
   const run = () => {
     if (typeof BINUH_DATA === 'undefined') {
       console.error('BINUH_DATA not loaded. Use a local server: python3 -m http.server 8000 — do not open HTML as file://');
       return;
     }
-    if (typeof Plotly === 'undefined') {
+    const needsPlotly = document.querySelector('.plotly-chart');
+    if (needsPlotly && typeof Plotly === 'undefined') {
       console.error('Plotly failed to load (CDN blocked?). Charts cannot render.');
       return;
     }
     fn();
-    requestAnimationFrame(() => requestAnimationFrame(resizeCharts));
+    if (needsPlotly) requestAnimationFrame(() => requestAnimationFrame(resizeCharts));
   };
   if (document.readyState === 'complete') run();
   else window.addEventListener('load', run);
