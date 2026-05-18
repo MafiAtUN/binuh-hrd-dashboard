@@ -18,7 +18,7 @@ function updateMap() {
   const monthF = document.getElementById('month-filter')?.value || 'all';
   const violF = document.getElementById('viol-filter')?.value || 'all';
   const perpF = document.getElementById('perp-filter')?.value || 'all';
-  const locs = D.all_locations || D.locations || [];
+  const locs = D.locations || [];
 
   locs.forEach(loc => {
     if (monthF !== 'all' && !(loc.months||[]).includes(monthF)) return;
