@@ -5,7 +5,8 @@ from datetime import datetime
 import pandas as pd
 
 BASE = os.path.dirname(__file__)
-CSV = os.path.join(BASE, "Cath's Mara data.csv")
+DOCS = os.path.join(BASE, "documents")
+CSV = os.path.join(DOCS, "Cath's Mara data.csv")
 OUT = os.path.join(BASE, "js", "data.js")
 
 CID = "Incident ID1, 2, 3, 4, …"
