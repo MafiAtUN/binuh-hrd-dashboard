@@ -1,17 +1,6 @@
 /* ============================================================
-   UNMISS HRD Q4 2025 – Violence Dashboard
-   Shared Stylesheet
-   ============================================================
-
-   Dark theme, UN blue accent (#009EDB). Covers:
-   - CSS variables (--bg, --accent, violation/gender/state colours)
-   - Layout: navbar, page header, sections, grids, cards
-   - Charts: .chart-wrap, .plotly-chart, download buttons
-   - Tables: .county-table, stat-row
-   - Maps: .map-wrapper, popups, Leaflet overrides
-   - Responsive breakpoints
-
-   Author: Mafizul Islam | https://github.com/MafiAtUN | https://www.linkedin.com/in/mafizul/ | islam50@un.org
+   BINUH Human Rights — Sexual Violence Dashboard
+   Shared stylesheet (dark theme, UN blue #009EDB)
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
@@ -355,10 +344,10 @@ img { max-width: 100%; }
   height: 3px;
   border-radius: var(--radius) var(--radius) 0 0;
 }
-.kpi-card.killed::before  { background: var(--killed); }
-.kpi-card.injured::before { background: var(--injured); }
-.kpi-card.abducted::before{ background: var(--abducted); }
-.kpi-card.crsv::before    { background: var(--crsv); }
+.kpi-card.victims::before       { background: var(--accent); }
+.kpi-card.sv-collective::before { background: var(--killed); }
+.kpi-card.sv-rape::before       { background: var(--injured); }
+.kpi-card.gangs::before         { background: var(--crsv); }
 .kpi-card.total::before   { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
 .kpi-card.male::before    { background: var(--male); }
 .kpi-card.female::before  { background: var(--female); }
