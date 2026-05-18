@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+onDashboardReady(() => {
   const q = cur();
   const p = prev();
   setKpi('kpi-total', q.total);

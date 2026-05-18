@@ -23,22 +23,32 @@ See [DEPLOY.md](DEPLOY.md) for full details.
 | `js/data.js` | Yes — `BINUH_DATA` (pre-aggregated; what the site loads) |
 | `documents/*.csv` | No — gitignored; local ETL input only |
 
-## Local preview (optional)
+## Local preview (recommended for testing)
 
-Same files as GitHub Pages serves:
+**Do not** double-click HTML files (`file://`). Browsers block `data.js` and charts will stay empty.
+
+1. Open Terminal in this project folder:
 
 ```bash
+cd "/Users/mafilicious/Library/CloudStorage/OneDrive-UnitedNations/Projects/binuh-online-dasboard"
 python3 -m http.server 8000
-# http://localhost:8000
 ```
 
-Regenerate data locally (not on GitHub):
+2. In your browser open:
+
+- **Overview:** http://localhost:8000/index.html  
+- **Geographic:** http://localhost:8000/geographic.html  
+- **Perpetrators:** http://localhost:8000/perpetrators.html  
+
+3. Stop the server with `Ctrl+C` in Terminal.
+
+Optional — refresh data from CSV (CSV stays local, not on GitHub):
 
 ```bash
 pip3 install -r requirements.txt
-# Place CSV in documents/, then:
+# Place Report_2.0.csv in documents/, then:
 python3 extract_data.py
-git add js/data.js && git commit -m "Update data" && git push
+# Reload the browser (no server restart needed)
 ```
 
 ## Pages

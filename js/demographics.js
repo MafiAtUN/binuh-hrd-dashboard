@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+onDashboardReady(() => {
   const q = cur();
   setKpi('kpi-male', q.gender.male);
   setKpi('kpi-female', q.gender.female);

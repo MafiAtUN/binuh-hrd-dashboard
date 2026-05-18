@@ -1,19 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
+onDashboardReady(() => {
   const q = cur();
-  const victimLabels = Object.keys(q.by_perpetrator || {});
-  const victimVals = victimLabels.map(p => q.by_perpetrator[p]);
-
-  plotChart('chart-perp-victims', [donutTrace(victimLabels, victimVals, victimLabels.map(perpColor))], pieLayout(360));
-
   const perpDetail = D.by_perpetrator || {};
-  const incLabels = Object.keys(perpDetail).sort((a, b) => perpDetail[b].incidents - perpDetail[a].incidents);
-  const incVals = incLabels.map(p => perpDetail[p].incidents);
-  plotChart('chart-perp-incidents', [{
-    type: 'bar', x: incLabels, y: incVals, marker: { color: incLabels.map(perpColor) },
-  }], { ...baseLayout(), height: 360, xaxis: { tickangle: -25 } });
+  const activePerps = PERPS.filter(p => (q.by_perpetrator?.[p] || 0) > 0 || (perpDetail[p]?.incidents || 0) > 0);
+  const labels = activePerps.length ? activePerps : PERPS;
+  const victimVals = labels.map(p => q.by_perpetrator?.[p] || 0);
+  const incVals = labels.map(p => perpDetail[p]?.incidents || 0);
+
+  Promise.all([
+    plotChart('chart-perp-victims', [donutTrace(labels, victimVals, labels.map(perpColor))], pieLayout(360)),
+    plotChart('chart-perp-incidents', [{
+      type: 'bar', x: labels, y: incVals, marker: { color: labels.map(perpColor) },
+    }], { ...baseLayout(), height: 360, xaxis: { tickangle: -25 } }),
+  ]).then(resizeCharts);
 
   const top = sortedCommunes(8);
-  plotChart('chart-gangs-commune', [{
-    type: 'bar', x: top.map(t => t[0]), y: top.map(t => t[1].by_perpetrator?.Gangs || 0), marker: { color: C.gangs },
-  }], { ...baseLayout(), height: 380, xaxis: { tickangle: -35 } });
+  const perpNames = labels.filter(p => p !== 'Unknown' || top.some(([, d]) => d.by_perpetrator?.Unknown));
+  plotChart('chart-gangs-commune', perpNames.map(p => ({
+    name: p,
+    type: 'bar',
+    x: top.map(t => t[0]),
+    y: top.map(t => t[1].by_perpetrator?.[p] || 0),
+    marker: { color: perpColor(p) },
+  })), { ...baseLayout(), barmode: 'stack', height: 400, xaxis: { tickangle: -35 } });
 });
