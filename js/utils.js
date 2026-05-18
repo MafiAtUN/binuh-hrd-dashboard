@@ -24,14 +24,31 @@ const plotlyConfig = { displayModeBar:false, responsive:true };
 function pieLayout(h=340) { return baseLayout({ height:h, margin:{t:20,r:10,b:30,l:10}, legend:{orientation:'v',x:1.02,y:0.5} }); }
 function plotChart(id, traces, layout) {
   const el = typeof id === 'string' ? document.getElementById(id) : id;
-  if (!el || typeof Plotly === 'undefined') return;
-  Plotly.newPlot(el, traces, layout, plotlyConfig);
+  if (!el || typeof Plotly === 'undefined') return Promise.resolve();
+  return Plotly.newPlot(el, traces, layout, plotlyConfig).then(() => Plotly.Plots.resize(el));
 }
 function resizeCharts() {
-  document.querySelectorAll('.plotly-chart .js-plotly-plot').forEach(el => {
-    const host = el.closest('.plotly-chart');
-    if (host?.id) Plotly.Plots.resize(host);
+  if (typeof Plotly === 'undefined') return;
+  document.querySelectorAll('.plotly-chart').forEach(el => {
+    if (el.id && el.querySelector('.js-plotly-plot')) Plotly.Plots.resize(el);
   });
+}
+/** Run after layout + Plotly + data.js are ready (fixes blank 2nd charts in grid-2). */
+function onDashboardReady(fn) {
+  const run = () => {
+    if (typeof BINUH_DATA === 'undefined') {
+      console.error('BINUH_DATA not loaded. Use a local server: python3 -m http.server 8000 — do not open HTML as file://');
+      return;
+    }
+    if (typeof Plotly === 'undefined') {
+      console.error('Plotly failed to load (CDN blocked?). Charts cannot render.');
+      return;
+    }
+    fn();
+    requestAnimationFrame(() => requestAnimationFrame(resizeCharts));
+  };
+  if (document.readyState === 'complete') run();
+  else window.addEventListener('load', run);
 }
 
 const D = typeof BINUH_DATA !== 'undefined' ? BINUH_DATA : {};
@@ -97,7 +114,6 @@ function initCounters(){
   });
 }
 window.addEventListener('load',()=>{
-  resizeCharts();
   document.querySelectorAll('.plotly-chart').forEach(ch=>{
     const wrap=ch.closest('.chart-wrap');
     if(wrap&&!wrap.querySelector('.chart-download-actions')) addChartDownloadButtons(wrap,ch,ch.id);

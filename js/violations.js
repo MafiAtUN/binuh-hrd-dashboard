@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+onDashboardReady(() => {
   const q = cur();
   const labels = ['Killed','Injured','Abducted'];
   const vals = [q.killed, q.injured, q.abducted];
