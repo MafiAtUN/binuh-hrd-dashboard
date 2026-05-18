@@ -6,13 +6,13 @@
 <style>.map-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}.map-select{background:var(--bg-card2);color:var(--text);border:1px solid var(--border);padding:8px 12px;border-radius:8px}#map-container{height:560px;border-radius:14px;border:1px solid var(--border)}</style>
 </head><body>
 <nav class="navbar"><a class="navbar-brand" href="index.html"><img src="assets/logo.png" alt="UN"/><div class="brand-text"><span class="brand-title">BINUH Human Rights</span><span class="brand-sub">Maps</span></div></a>
-<div class="nav-links"><a class="nav-link" href="index.html">Overview</a><a class="nav-link" href="demographics.html">Demographics</a><a class="nav-link" href="perpetrators.html">Perpetrators</a><a class="nav-link" href="geographic.html">Geographic</a><a class="nav-link" href="types.html">SV Types</a><a class="nav-link" href="maps.html">Maps</a></div></nav>
+<div class="nav-links"><a class="nav-link" href="index.html">Overview</a><a class="nav-link" href="demographics.html">Demographics</a><a class="nav-link" href="perpetrators.html">Perpetrators</a><a class="nav-link" href="geographic.html">Geographic</a><a class="nav-link" href="violations.html">Violations</a><a class="nav-link" href="maps.html">Maps</a></div></nav>
 <div class="page-header"><div class="container page-header-inner"><div class="page-tag">Q1 2026</div><h1 class="page-title">Incident <span>Map</span></h1></div></div>
 <main class="main"><div class="container">
 <section class="section">
 <div class="map-controls">
 <select class="map-select" id="month-filter"><option value="all">All months</option><option value="January">January</option><option value="February">February</option><option value="March">March</option></select>
-<select class="map-select" id="sv-filter"></select>
+<select class="map-select" id="viol-filter"></select>
 <select class="map-select" id="perp-filter"></select>
 </div>
 <div id="map-container"></div>
