@@ -49,11 +49,13 @@ function animateCounter(el, target, dur=1200) {
   requestAnimationFrame(step);
 }
 function setKpi(id,v){ const e=document.getElementById(id); if(e){e.dataset.count=v;} }
+/** Works on GitHub Pages project URLs (e.g. /repo-name/page.html). */
 function highlightNav(){
-  const page=window.location.pathname.split('/').pop()||'index.html';
-  document.querySelectorAll('.nav-link').forEach(a=>{
-    const h=a.getAttribute('href')||'';
-    if(h===page||(page===''&&h==='index.html')) a.classList.add('active');
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  let page = parts[parts.length - 1] || 'index.html';
+  if (!page.endsWith('.html')) page = 'index.html';
+  document.querySelectorAll('.nav-link').forEach(a => {
+    if ((a.getAttribute('href') || '') === page) a.classList.add('active');
   });
 }
 function sortedCommunes(n=15){
