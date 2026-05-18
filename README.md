@@ -4,7 +4,7 @@ Interactive Q1 2026 dashboard for sexual violence incidents documented by the Hu
 
 ## Live demo
 
-After GitHub Pages is enabled: `https://<username>.github.io/binuh-hrd-dashboard/`
+**https://mafiatun.github.io/binuh-hrd-dashboard/**
 
 ## Quick start
 
