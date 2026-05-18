@@ -21,37 +21,76 @@ function updateMap() {
   const locs = D.locations || [];
 
   locs.forEach(loc => {
-    if (monthF !== 'all' && !(loc.months||[]).includes(monthF)) return;
+    if (monthF !== 'all' && !(loc.months || []).includes(monthF)) return;
     if (violF !== 'all' && loc.violation !== violF) return;
     if (perpF !== 'all' && loc.perpetrator !== perpF) return;
     if (!loc.lat || !loc.lon) return;
     const r = Math.max(6, Math.min(40, Math.sqrt(loc.victims) * 4));
     const m = L.circleMarker([loc.lat, loc.lon], {
       radius: r, fillColor: vColor(loc.violation), color: '#fff', weight: 1, fillOpacity: 0.75,
-    }).bindPopup(`<b>${loc.commune}</b><br>${loc.violation}<br>${loc.perpetrator}<br>${loc.victims} victims`);
+    }).bindPopup(`<b>${loc.commune}</b><br>${lblViol(loc.violation)}<br>${lblPerp(loc.perpetrator)}<br>${loc.victims} ${t('map.popup.victims')}`);
     m.addTo(map); markers.push(m);
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function renderMapFilters() {
+  applyStaticI18n();
   const violSel = document.getElementById('viol-filter');
   const perpSel = document.getElementById('perp-filter');
+  const monthSel = document.getElementById('month-filter');
+
+  if (monthSel) {
+    const cur = monthSel.value || 'all';
+    monthSel.innerHTML = '';
+    const all = document.createElement('option');
+    all.value = 'all';
+    all.textContent = t('map.month.all');
+    monthSel.appendChild(all);
+    ['January', 'February', 'March'].forEach(m => {
+      const o = document.createElement('option');
+      o.value = m;
+      o.textContent = lblMonth(m);
+      monthSel.appendChild(o);
+    });
+    monthSel.value = cur;
+  }
   if (violSel) {
-    ['all','killed','injured','abducted'].forEach(v => {
-      const o = document.createElement('option'); o.value = v;
-      o.textContent = v === 'all' ? 'All violations' : v.charAt(0).toUpperCase() + v.slice(1);
+    violSel.innerHTML = '';
+    ['all', 'killed', 'injured', 'abducted'].forEach(v => {
+      const o = document.createElement('option');
+      o.value = v;
+      o.textContent = v === 'all' ? t('map.viol.all') : lblViol(v);
       violSel.appendChild(o);
     });
   }
   if (perpSel) {
-    [...new Set((D.all_locations||[]).map(l => l.perpetrator))].forEach(v => {
-      const o = document.createElement('option'); o.value = v; o.textContent = v; perpSel.appendChild(o);
+    perpSel.innerHTML = '';
+    const all = document.createElement('option');
+    all.value = 'all';
+    all.textContent = t('map.perp.all');
+    perpSel.appendChild(all);
+    [...new Set((D.all_locations || []).map(l => l.perpetrator))].forEach(v => {
+      const o = document.createElement('option');
+      o.value = v;
+      o.textContent = lblPerp(v);
+      perpSel.appendChild(o);
     });
-    const all = document.createElement('option'); all.value = 'all'; all.textContent = 'All perpetrators';
-    perpSel.insertBefore(all, perpSel.firstChild);
   }
-  ['month-filter','viol-filter','perp-filter'].forEach(id => {
+  updateMap();
+}
+
+function renderMaps() {
+  renderMapFilters();
+  if (!map) buildMap();
+  else updateMap();
+}
+
+registerPageRenderer(renderMaps);
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof BINUH_DATA === 'undefined') return;
+  ['month-filter', 'viol-filter', 'perp-filter'].forEach(id => {
     document.getElementById(id)?.addEventListener('change', updateMap);
   });
-  buildMap();
+  onDashboardReady(renderMaps);
 });

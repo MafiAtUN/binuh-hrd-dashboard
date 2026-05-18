@@ -8,6 +8,7 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <script src="js/data.js" defer></script>
+<script src="js/i18n.js" defer></script>
 <script src="js/utils.js" defer></script>
 <script src="js/overview.js" defer></script>
 </head>
@@ -16,59 +17,59 @@
   <a class="navbar-brand" href="index.html">
     <img src="assets/logo.png" alt="OHCHR"/>
     <div class="brand-text">
-      <span class="brand-title">BINUH Human Rights</span>
-      <span class="brand-sub">Violence Affecting Civilians — Haiti</span>
+      <span class="brand-title" data-i18n="brand.title">BINUH Human Rights</span>
+      <span class="brand-sub" data-i18n="brand.sub.overview">Violence Affecting Civilians — Haiti</span>
     </div>
   </a>
   <div class="nav-links">
-    <a class="nav-link active" href="index.html">Overview</a>
-    <a class="nav-link" href="demographics.html">Demographics</a>
-    <a class="nav-link" href="perpetrators.html">Perpetrators</a>
-    <a class="nav-link" href="geographic.html">Geographic</a>
-    <a class="nav-link" href="violations.html">Violations</a>
-    <a class="nav-link" href="maps.html">Maps</a>
+    <a class="nav-link active" href="index.html" data-i18n="nav.overview">Overview</a>
+    <a class="nav-link" href="demographics.html" data-i18n="nav.demographics">Demographics</a>
+    <a class="nav-link" href="perpetrators.html" data-i18n="nav.perpetrators">Perpetrators</a>
+    <a class="nav-link" href="geographic.html" data-i18n="nav.geographic">Geographic</a>
+    <a class="nav-link" href="violations.html" data-i18n="nav.violations">Violations</a>
+    <a class="nav-link" href="maps.html" data-i18n="nav.maps">Maps</a>
   </div>
 </nav>
 <div class="page-header">
   <div class="container page-header-inner">
     <div class="page-tag" id="page-period">Q1 2026</div>
     <h1 class="page-title">Violence Affecting Civilians — <span>Overview</span></h1>
-    <p class="page-subtitle">Documented civilian casualties in Haiti (Report 2.0). Data are non-exhaustive.</p>
+    <p class="page-disclaimer" data-i18n="disclaimer">Documented civilian casualties in Haiti (Report 2.0). Data are non-exhaustive.</p>
   </div>
 </div>
 <main class="main"><div class="container">
   <section class="section">
     <div class="grid grid-kpi">
-      <div class="kpi-card total"><div class="kpi-label">Total victims</div><div class="kpi-value" id="kpi-total" data-count="0">0</div><div class="kpi-sub" id="kpi-total-change"></div></div>
-      <div class="kpi-card killed"><div class="kpi-label">Killed</div><div class="kpi-value" id="kpi-killed" data-count="0">0</div></div>
-      <div class="kpi-card injured"><div class="kpi-label">Injured</div><div class="kpi-value" id="kpi-injured" data-count="0">0</div></div>
-      <div class="kpi-card abducted"><div class="kpi-label">Abducted</div><div class="kpi-value" id="kpi-abducted" data-count="0">0</div></div>
-      <div class="kpi-card gangs"><div class="kpi-label">Gangs (victims)</div><div class="kpi-value" id="kpi-gangs" data-count="0">0</div></div>
+      <div class="kpi-card total"><div class="kpi-label" data-i18n="kpi.total">Total victims</div><div class="kpi-value" id="kpi-total" data-count="0">0</div><div class="kpi-sub" id="kpi-total-change"></div></div>
+      <div class="kpi-card killed"><div class="kpi-label" data-i18n="kpi.killed">Killed</div><div class="kpi-value" id="kpi-killed" data-count="0">0</div></div>
+      <div class="kpi-card injured"><div class="kpi-label" data-i18n="kpi.injured">Injured</div><div class="kpi-value" id="kpi-injured" data-count="0">0</div></div>
+      <div class="kpi-card abducted"><div class="kpi-label" data-i18n="kpi.abducted">Abducted</div><div class="kpi-value" id="kpi-abducted" data-count="0">0</div></div>
+      <div class="kpi-card gangs"><div class="kpi-label" data-i18n="kpi.gangs">Gangs (victims)</div><div class="kpi-value" id="kpi-gangs" data-count="0">0</div></div>
     </div>
   </section>
   <section class="section"><div class="grid grid-2">
-    <div class="chart-wrap"><div class="chart-header"><div class="chart-title">By violation</div></div><div id="chart-violation-donut" class="plotly-chart"></div></div>
-    <div class="chart-wrap"><div class="chart-header"><div class="chart-title">By gender</div></div><div id="chart-gender-donut" class="plotly-chart"></div></div>
+    <div class="chart-wrap"><div id="chart-violation-donut" class="plotly-chart"></div></div>
+    <div class="chart-wrap"><div id="chart-gender-donut" class="plotly-chart"></div></div>
   </div></section>
   <section class="section"><div class="grid grid-2">
-    <div class="chart-wrap"><div class="chart-header"><div class="chart-title">Quarterly trend</div></div><div id="chart-quarterly" class="plotly-chart"></div></div>
-    <div class="chart-wrap"><div class="chart-header"><div class="chart-title">Perpetrators</div></div><div id="chart-perp-donut" class="plotly-chart"></div></div>
+    <div class="chart-wrap"><div id="chart-quarterly" class="plotly-chart"></div></div>
+    <div class="chart-wrap"><div id="chart-perp-donut" class="plotly-chart"></div></div>
   </div></section>
   <section class="section"><div class="grid grid-2">
-    <div class="chart-wrap"><div class="chart-header"><div class="chart-title">Monthly (current quarter)</div></div><div id="chart-monthly" class="plotly-chart"></div></div>
-    <div class="chart-wrap"><div class="chart-header"><div class="chart-title">Top communes</div></div><div id="chart-commune-bar" class="plotly-chart"></div></div>
+    <div class="chart-wrap"><div id="chart-monthly" class="plotly-chart"></div></div>
+    <div class="chart-wrap"><div id="chart-commune-bar" class="plotly-chart"></div></div>
   </div></section>
   <section class="section insight-box" id="insights"></section>
 </div></main>
 <footer class="footer"><div class="container footer-inner">
-  <p>© BINUH Human Rights</p>
-  <p><a href="#" id="dl-all-json">Download JSON</a> · <a href="#" id="dl-summary-csv">Download CSV</a></p>
+  <p data-i18n="footer.copy">© BINUH Human Rights</p>
+  <p><a href="#" id="dl-all-json" data-i18n="footer.json">Download JSON</a> · <a href="#" id="dl-summary-csv" data-i18n="footer.csv">Download CSV</a></p>
 </div></footer>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
   if(typeof BINUH_DATA!=='undefined'&&BINUH_DATA.meta){
-    const t=document.getElementById('page-period');
-    if(t) t.textContent=BINUH_DATA.meta.period_label||'';
+    const el=document.getElementById('page-period');
+    if(el) el.textContent=BINUH_DATA.meta.period_label||'';
   }
 });
 </script>

@@ -2,21 +2,25 @@
 <title>BINUH HR — Geographic</title><link rel="stylesheet" href="css/style.css"/>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
-<script src="js/data.js" defer></script><script src="js/utils.js" defer></script><script src="js/geographic.js" defer></script>
-</head><body>
-<nav class="navbar"><a class="navbar-brand" href="index.html"><img src="assets/logo.png" alt="UN"/><div class="brand-text"><span class="brand-title">BINUH Human Rights</span><span class="brand-sub">Geographic</span></div></a>
-<div class="nav-links"><a class="nav-link" href="index.html">Overview</a><a class="nav-link" href="demographics.html">Demographics</a><a class="nav-link" href="perpetrators.html">Perpetrators</a><a class="nav-link active" href="geographic.html">Geographic</a><a class="nav-link" href="violations.html">Violations</a><a class="nav-link" href="maps.html">Maps</a></div></nav>
-<div class="page-header"><div class="container page-header-inner"><div class="page-tag">Q1 2026</div><h1 class="page-title">Geographic <span>Analysis</span></h1><p class="page-subtitle">By commune (Admin2)</p></div></div>
+<script src="js/data.js" defer></script>
+<script src="js/i18n.js" defer></script>
+<script src="js/utils.js" defer></script>
+<script src="js/geographic.js" defer></script></head><body>
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html"><img src="assets/logo.png" alt="OHCHR"/><div class="brand-text"><span class="brand-title" data-i18n="brand.title">BINUH Human Rights</span><span class="brand-sub" data-i18n="brand.sub.geographic"></span></div></a>
+  <div class="nav-links"><a class="nav-link" href="index.html" data-i18n="nav.overview"></a><a class="nav-link" href="demographics.html" data-i18n="nav.demographics"></a><a class="nav-link" href="perpetrators.html" data-i18n="nav.perpetrators"></a><a class="nav-link active" href="geographic.html" data-i18n="nav.geographic"></a><a class="nav-link" href="violations.html" data-i18n="nav.violations"></a><a class="nav-link" href="maps.html" data-i18n="nav.maps"></a></div>
+</nav>
+<div class="page-header"><div class="container page-header-inner"><div class="page-tag" id="page-period">Q1 2026</div><h1 class="page-title">Geographic <span>Analysis</span></h1><p class="page-subtitle" data-i18n="page.geographic.sub"></p></div></div>
 <main class="main"><div class="container">
 <section class="section"><div class="grid grid-kpi">
-<div class="kpi-card total"><div class="kpi-label">Communes</div><div class="kpi-value" id="kpi-communes" data-count="0">0</div></div>
-<div class="kpi-card victims"><div class="kpi-label">Top commune victims</div><div class="kpi-value" id="kpi-top-commune-v" data-count="0">0</div><div class="kpi-sub" id="kpi-top-commune-n"></div></div>
+<div class="kpi-card total"><div class="kpi-label" data-i18n="kpi.communes"></div><div class="kpi-value" id="kpi-communes" data-count="0">0</div></div>
+<div class="kpi-card victims"><div class="kpi-label" data-i18n="kpi.top_commune"></div><div class="kpi-value" id="kpi-top-commune-v" data-count="0">0</div><div class="kpi-sub" id="kpi-top-commune-n"></div></div>
 </div></section>
 <section class="section"><div class="grid grid-2">
-<div class="chart-wrap"><div class="chart-header"><div class="chart-title">Victims by commune</div></div><div id="chart-commune-victims" class="plotly-chart"></div></div>
-<div class="chart-wrap"><div class="chart-header"><div class="chart-title">Incidents by commune</div></div><div id="chart-commune-incidents" class="plotly-chart"></div></div>
+<div class="chart-wrap"><div id="chart-commune-victims" class="plotly-chart"></div></div>
+<div class="chart-wrap"><div id="chart-commune-incidents" class="plotly-chart"></div></div>
 </div></section>
 <section class="section"><table class="data-table" id="commune-table"></table></section>
 </div></main>
-<footer class="footer"><div class="container footer-inner"><p>© BINUH Human Rights</p><p><a href="#" id="dl-all-json">Download JSON</a> · <a href="#" id="dl-summary-csv">Download CSV</a></p></div></footer>
+<footer class="footer"><div class="container footer-inner"><p data-i18n="footer.copy"></p><p><a href="#" id="dl-all-json" data-i18n="footer.json"></a> · <a href="#" id="dl-summary-csv" data-i18n="footer.csv"></a></p></div></footer>
 </body></html>

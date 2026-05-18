@@ -2,22 +2,24 @@
 <title>BINUH HR — Maps</title><link rel="stylesheet" href="css/style.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="js/data.js"></script><script src="js/utils.js"></script><script src="js/maps.js"></script>
+<script src="js/data.js"></script><script src="js/i18n.js"></script><script src="js/utils.js"></script><script src="js/maps.js"></script>
 <style>.map-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}.map-select{background:var(--bg-card2);color:var(--text);border:1px solid var(--border);padding:8px 12px;border-radius:8px}#map-container{height:560px;border-radius:14px;border:1px solid var(--border)}</style>
 </head><body>
-<nav class="navbar"><a class="navbar-brand" href="index.html"><img src="assets/logo.png" alt="UN"/><div class="brand-text"><span class="brand-title">BINUH Human Rights</span><span class="brand-sub">Maps</span></div></a>
-<div class="nav-links"><a class="nav-link" href="index.html">Overview</a><a class="nav-link" href="demographics.html">Demographics</a><a class="nav-link" href="perpetrators.html">Perpetrators</a><a class="nav-link" href="geographic.html">Geographic</a><a class="nav-link" href="violations.html">Violations</a><a class="nav-link" href="maps.html">Maps</a></div></nav>
-<div class="page-header"><div class="container page-header-inner"><div class="page-tag">Q1 2026</div><h1 class="page-title">Incident <span>Map</span></h1></div></div>
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html"><img src="assets/logo.png" alt="OHCHR"/><div class="brand-text"><span class="brand-title" data-i18n="brand.title">BINUH Human Rights</span><span class="brand-sub" data-i18n="brand.sub.maps"></span></div></a>
+  <div class="nav-links"><a class="nav-link" href="index.html" data-i18n="nav.overview"></a><a class="nav-link" href="demographics.html" data-i18n="nav.demographics"></a><a class="nav-link" href="perpetrators.html" data-i18n="nav.perpetrators"></a><a class="nav-link" href="geographic.html" data-i18n="nav.geographic"></a><a class="nav-link" href="violations.html" data-i18n="nav.violations"></a><a class="nav-link active" href="maps.html" data-i18n="nav.maps"></a></div>
+</nav>
+<div class="page-header"><div class="container page-header-inner"><div class="page-tag" id="page-period">Q1 2026</div><h1 class="page-title">Incident <span>Map</span></h1><p class="page-disclaimer" data-i18n="disclaimer.map"></p></div></div>
 <main class="main"><div class="container">
 <section class="section">
+<p class="section-intro"><strong data-i18n="map.filters.title"></strong> — <span data-i18n="map.filters.sub"></span><br><span data-i18n="map.filters.explain"></span></p>
 <div class="map-controls">
-<select class="map-select" id="month-filter"><option value="all">All months</option><option value="January">January</option><option value="February">February</option><option value="March">March</option></select>
+<select class="map-select" id="month-filter"><option value="all" data-i18n="map.month.all"></option><option value="January">January</option><option value="February">February</option><option value="March">March</option></select>
 <select class="map-select" id="viol-filter"></select>
 <select class="map-select" id="perp-filter"></select>
 </div>
 <div id="map-container"></div>
-<p class="text-muted mt-4">Circle size reflects victim count. Data are non-exhaustive.</p>
 </section>
 </div></main>
-<footer class="footer"><div class="container footer-inner"><p>© BINUH Human Rights</p></div></footer>
+<footer class="footer"><div class="container footer-inner"><p data-i18n="footer.copy"></p></div></footer>
 </body></html>

@@ -10,7 +10,7 @@ const VIOLATIONS = ['Killed', 'Injured', 'Abducted'];
 const VIOL_KEYS = ['killed', 'injured', 'abducted'];
 const PERPS = ['Gangs', 'Security Forces', 'Community / Justice Actors', 'Unknown'];
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const DATA_SOURCE = 'Data source: Human Rights Section, BINUH (Report 2.0)';
+function dataSource() { return typeof t === 'function' ? t('data.source') : 'Data source: Human Rights Section, BINUH (Report 2.0)'; }
 
 const baseLayout = (o={}) => ({
   paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
@@ -104,7 +104,7 @@ function initFooterDownloads(){
   if(j) j.onclick=e=>{e.preventDefault(); downloadJSON(BINUH_DATA);};
   if(c) c.onclick=e=>{
     e.preventDefault(); const q=cur();
-    downloadCSV([[DATA_SOURCE],[],['Metric','Value'],['Total victims',q.total],['Killed',q.killed],['Injured',q.injured],['Abducted',q.abducted]],'binuh-summary.csv');
+    downloadCSV([[dataSource()],[],[t('table.victims'),t('kpi.total')],[t('kpi.total'),q.total],[t('kpi.killed'),q.killed],[t('kpi.injured'),q.injured],[t('kpi.abducted'),q.abducted]],'binuh-summary.csv');
   };
 }
 function initCounters(){
@@ -123,7 +123,8 @@ function addChartDownloadButtons(container, chartEl, base) {
   if (!container||!chartEl||container.querySelector('.chart-download-actions')) return;
   const div=document.createElement('div');
   div.className='chart-download-actions';
-  div.innerHTML='<button type="button" class="btn-download-chart">PNG</button><button type="button" class="btn-download-data">CSV</button>';
+  div.innerHTML=`<button type="button" class="btn-download-chart" data-i18n="btn.png">PNG</button><button type="button" class="btn-download-data" data-i18n="btn.csv">CSV</button>`;
+  if (typeof applyStaticI18n === 'function') applyStaticI18n();
   div.querySelector('.btn-download-chart').onclick=()=>{
     if(typeof html2canvas==='undefined'){ Plotly.downloadImage(chartEl,{format:'png',filename:base}); return; }
     div.style.visibility='hidden';
@@ -136,8 +137,9 @@ function addChartDownloadButtons(container, chartEl, base) {
     let rows=[['Category','Value']];
     if(t.type==='pie') t.labels.forEach((l,i)=>rows.push([l,t.values[i]]));
     else if(t.type==='bar') rows=[['Category',t.name||'Value'],...t.x.map((x,i)=>[x,t.y[i]])];
-    downloadCSV([[DATA_SOURCE],[],...rows],base+'.csv');
+    downloadCSV([[dataSource()],[],...rows],base+'.csv');
   };
   (container.querySelector('.chart-header')||container).appendChild(div);
 }
 document.addEventListener('DOMContentLoaded',()=>{ highlightNav(); initCounters(); initFooterDownloads(); });
+window.addEventListener('binuh:langchange',()=>{ if(typeof applyStaticI18n==='function') applyStaticI18n(); });
